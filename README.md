@@ -1,2 +1,2 @@
-# blueprint.sh
+# blueprint
 Create files from template folder
