@@ -1,3 +1,5 @@
+# THIS SCRIPT IS NOT YET WORKING
+
 # blueprint
 Create files from template folder.
 
