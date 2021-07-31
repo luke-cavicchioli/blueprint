@@ -21,6 +21,7 @@ class Blueprint:
 
     name: str
     path: str
+    extension: str = None
     initScript: str = None
     fileDir: list = None
 
@@ -28,14 +29,16 @@ class Blueprint:
         """Display Blueprint information."""
         namestr = self.name + "\n"
         descstr = f" path: {self.path}\n" +\
-                  f"init script: {self.initScript}" +\
-                  f"accessory files: {self.fileDir}"
+                  f" init script: {self.initScript}\n" +\
+                  f" accessory files: {self.fileDir}"
         return namestr + descstr
 
     @property
     def filePath(self):
         """Path of template file."""
-        return self.path + "/" + self.name
+        for f in glob(self.path + "/*"):
+            if os.path.basename(f.split(".")[0]) == self.name:
+                return f
 
     @property
     def initPath(self):
@@ -159,9 +162,9 @@ def argParse():
         action="store_true")
     createParser.add_argument(
         "--no-accessories", help="Don't bring any of those fancy accessory \
-        files.", action="store_true")
+        files.", action="store_true", default=True)
     createParser.add_argument("--no-git", help="No version control, just like \
-        real men.", action="store_true")
+        real men.", action="store_true", default=True)
 
     # do the arg parsing and return
     return topParser.parse_args()
@@ -189,7 +192,9 @@ def main():
     # create subcommand
     if args.cmd == "create":
         bpSelected = args.name
-        bpCreate(bpDict[bpSelected])
+        bpCreate(bpDict[bpSelected],
+                 init=not args.no_script,
+                 accessory=not args.no_accessories)
 
 
 # do the main things
