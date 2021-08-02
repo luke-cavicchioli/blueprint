@@ -8,7 +8,7 @@ import stat
 from shutil import copy2
 from dataclasses import dataclass
 from glob import glob
-from subprocess import call
+from subprocess import run
 
 
 # version of the program
@@ -43,7 +43,7 @@ class Blueprint:
     @property
     def initPath(self):
         """Path of init file."""
-        return self.path + "/" + self.initPath
+        return self.path + "/" + self.initScript
 
     @property
     def dirPath(self):
@@ -70,7 +70,7 @@ def bpInit(myBp: Blueprint, dirName: str):
         return
     copy2(myBp.initPath, dirName)
     os.chmod("./" + myBp.initScript, stat.S_IXUSR)
-    call(["sh", "./" + myBp.initScript])
+    run(["sh", "./" + myBp.initScript])
 
 
 def bpCreate(myBp: Blueprint, dirName: str = ".",
