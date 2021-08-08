@@ -4,7 +4,6 @@
 
 import os
 import argparse
-import stat
 from shutil import copy2
 from dataclasses import dataclass
 from glob import glob
@@ -21,7 +20,6 @@ class Blueprint:
 
     name: str
     path: str
-    extension: str = None
     initScript: str = None
     fileDir: list = None
 
@@ -69,7 +67,8 @@ def bpInit(myBp: Blueprint, dirName: str):
     if myBp.initScript is None:
         return
     copy2(myBp.initPath, dirName)
-    os.chmod("./" + myBp.initScript, stat.S_IXUSR)
+    st = os.stat(myBp.initPath)
+    os.chmod("./" + myBp.initScript, st | 0o0111)
     run(["sh", "./" + myBp.initScript])
 
 
