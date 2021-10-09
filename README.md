@@ -38,6 +38,7 @@ default value is `~/Templates`
 
 ### `create` options
 `--no-script`: do not execute the init script
+
 `--no-accessories`: do not bring in accessory files
 
 ## Directory structure
