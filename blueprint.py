@@ -11,7 +11,7 @@ from subprocess import run
 
 
 # version of the program
-VERSION = "v0.0.1"
+VERSION = "v1.0.0"
 
 
 @dataclass(frozen=True)

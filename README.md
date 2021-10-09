@@ -1,11 +1,9 @@
-# THIS SCRIPT IS NOT YET WORKING
-
-# blueprint
-Create files from template folder.
+# Blueprint
+Create files from template folder. Also a cowboy.
 
 Nothing fancy - just a simple country script moving those templates around.
 Copies the template file to the current directory, copies other accessory files,
-copy init script, then executes it. For further details about accessory files
+copies init script, then executes it. For further details about accessory files
 and init scripts, see "Directory structure".
 
 ## Install
@@ -20,7 +18,7 @@ Then,
 
 ```bash
 $ cd blueprint
-$ cp blueprint.py ~/blueprint
+$ cp blueprint.py ~/bin/blueprint
 $ chmod +x ~/blueprint
 ```
 ## Usage
