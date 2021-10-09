@@ -59,7 +59,7 @@ def bpAccessory(myBp: Blueprint, dirName: str):
     if myBp.fileDir is None:
         return
     for file in glob(myBp.dirPath + "*"):
-        copy2(myBp.dirPath + file, dirName)
+        copy2(file, dirName)
 
 
 def bpInit(myBp: Blueprint, dirName: str):
@@ -68,7 +68,8 @@ def bpInit(myBp: Blueprint, dirName: str):
         return
     copy2(myBp.initPath, dirName)
     st = os.stat(myBp.initPath)
-    os.chmod("./" + myBp.initScript, st | 0o0111)
+    mode = st.st_mode | 0o111  # add execute permission bits
+    os.chmod("./" + myBp.initScript, mode | 0o0111)
     run(["sh", "./" + myBp.initScript])
 
 
@@ -161,10 +162,7 @@ def argParse():
         action="store_true")
     createParser.add_argument(
         "--no-accessories", help="Don't bring any of those fancy accessory \
-        files.", action="store_true", default=True)
-    createParser.add_argument("--no-git", help="No version control, just like \
-        real men.", action="store_true", default=True)
-
+        files.", action="store_true")
     # do the arg parsing and return
     return topParser.parse_args()
 
